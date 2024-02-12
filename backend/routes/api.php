@@ -19,14 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/', function () {
-    return 'Hello, World!';
+    return 'Hello, World!!!';
 });
 
 Route::get('/2', function () {
     return
-    [
-        'name' => 'Laravel',
-        'version' => '8.x'
-    ];
+        [
+            'name' => 'Laravel',
+            'version' => '8.x'
+        ];
 });
-
