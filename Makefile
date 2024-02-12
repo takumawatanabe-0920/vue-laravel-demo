@@ -10,7 +10,11 @@ stop:
 up:
 	docker-compose up -d --build
 composer-update:
-	docker-compose exec my-api bash -c "cd /var/www/html && composer update"
+	docker-compose exec php sh -c "cd /var/www/html && composer update"
+create-table:
+	docker-compose exec php sh -c "cd /var/www/html && php artisan make:migrate"
+migrate:
+	docker-compose exec php sh -c "cd /var/www/html && php artisan migrate"
 data:
-	docker-compose exec my-api bash -c "cd /var/www/html && php artisan migrate"
-	docker-compose exec my-api bash -c "cd /var/www/html && php artisan db:seed"
+	docker-compose exec php sh -c "cd /var/www/html && php artisan migrate"
+	docker-compose exec php sh -c "cd /var/www/html && php artisan db:seed"
