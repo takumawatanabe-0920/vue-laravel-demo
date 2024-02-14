@@ -22,10 +22,12 @@ Route::get('/', function () {
     return 'Hello, World!!!';
 });
 
-Route::get('/2', function () {
-    return
-        [
-            'name' => 'Laravel',
-            'version' => '8.x'
-        ];
+Route::group([
+    "prefix" => "tasks"
+], function () {
+    Route::get('/', 'App\Http\Controllers\TaskController@index');
+    Route::post('/', 'App\Http\Controllers\TaskController@store');
+    Route::get('/{taskId}', 'App\Http\Controllers\TaskController@show');
+    Route::put('/{taskId}', 'App\Http\Controllers\TaskController@update');
+    Route::delete('/{taskId}', 'App\Http\Controllers\TaskController@destroy');
 });
