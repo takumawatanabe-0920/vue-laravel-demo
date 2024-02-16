@@ -6,7 +6,7 @@ use Monolog\Formatter\LineFormatter;
 
 class SimpleFormatter
 {
-    public function __invoke($logger): void
+    public function __invoke(mixed $logger): void
     {
         foreach ($logger->getHandlers() as $handler) {
             $handler->setFormatter(new LineFormatter(

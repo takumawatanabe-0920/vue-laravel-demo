@@ -29,24 +29,34 @@ class TaskController extends Controller
         return $this->service->index();
     }
 
-    public function show(int $id): Task
+    public function show(int $id): Task | null
     {
         return $this->service->show($id);
     }
 
-    public function store(TaskRequest $request): Task
+    public function store(TaskRequest $request): Task | null
     {
-        $data = new CreateTaskDto($request->validated());
-        return $this->service->store($data);
+        $data = $request->validated();
+        $transformedData = [
+            'label' => (string) $data['label'],
+            'is_done' => (bool) $data['is_done'],
+        ];
+        $transformedData = new CreateTaskDto($transformedData);
+        return $this->service->store($transformedData);
     }
 
-    public function update(TaskRequest $request, int $id): Task
+    public function update(TaskRequest $request, int $id): bool
     {
-        $data = new UpdateTaskDto($request->validated());
-        return $this->service->update($data, $id);
+        $data = $request->validated();
+        $transformedData = [
+            'label' => (string) $data['label'],
+            'is_done' => (bool) $data['is_done'],
+        ];
+        $transformedData = new UpdateTaskDto($transformedData);
+        return $this->service->update($transformedData, $id);
     }
 
-    public function destroy(int $id): bool
+    public function destroy(int $id): int
     {
         return $this->service->destroy($id);
     }

@@ -6,12 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TaskRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    /**
+     * @return array<string, mixed>
+     */
+    public function rules(): array
     {
         return [
             'label' => 'required|string',

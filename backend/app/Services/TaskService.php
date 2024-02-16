@@ -25,22 +25,22 @@ class TaskService
         return $this->taskRepository->index();
     }
 
-    public function show(int $id): Task
+    public function show(int $id): Task | null
     {
         return $this->taskRepository->show($id);
     }
 
-    public function store(CreateTaskDto $data): Task
+    public function store(CreateTaskDto $data): Task | null
     {
-        return $this->taskRepository->store($data);
+        return $this->taskRepository->store($data->toArray());
     }
 
-    public function update(UpdateTaskDto $data, int $id): Task
+    public function update(UpdateTaskDto $data, int $id): bool
     {
-        return $this->taskRepository->update($data, $id);
+        return $this->taskRepository->update($data->toArray(), $id);
     }
 
-    public function destroy(int $id): bool
+    public function destroy(int $id): int
     {
         return $this->taskRepository->destroy($id);
     }
