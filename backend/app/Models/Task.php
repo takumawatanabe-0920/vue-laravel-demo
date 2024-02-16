@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,15 +23,15 @@ class Task extends Model
         'is_done' => 'boolean'
     ];
 
-    public function getIsDoneAttribute($value)
+    public function getIsDoneAttribute(bool $value): bool
     {
-        return (bool) $value;
+        return $value;
     }
 
 
-    public function setIsDoneAttribute($value)
+    public function setIsDoneAttribute(bool $value): void
     {
-        $this->attributes['is_done'] = (bool) $value;
+        $this->attributes['is_done'] = $value;
     }
 
     public static function boot()

@@ -20,7 +20,6 @@ services:
         volumes:
             - ./nginx:/etc/nginx/conf.d
             - ./backend:/var/www/html
-            # - ./frontend:/var/www/html/spa
         networks:
             - laravel
 
@@ -51,9 +50,11 @@ services:
             - laravel
 
     composer:
+        container_name: composer
         image: composer
         volumes:
           - ./backend:/var/www/html
+        working_dir: /var/www/html
         command: composer install
         depends_on:
           - php
@@ -71,12 +72,3 @@ services:
         entrypoint: ['php', 'artisan']
         networks:
             - laravel
-
-    # npm:
-    #     image: node:latest
-    #     volumes:
-    #       - ./frontend:/var/www/html/spa
-    #     working_dir: /var/www/html/spa
-    #     command: npm install && npm run build
-    #     networks:
-    #       - laravel

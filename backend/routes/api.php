@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +28,9 @@ Route::get('/', function () {
 Route::group([
     "prefix" => "tasks"
 ], function () {
-    Route::get('/', 'App\Http\Controllers\TaskController@index');
-    Route::post('/', 'App\Http\Controllers\TaskController@store');
-    Route::get('/{taskId}', 'App\Http\Controllers\TaskController@show');
-    Route::put('/{taskId}', 'App\Http\Controllers\TaskController@update');
-    Route::delete('/{taskId}', 'App\Http\Controllers\TaskController@destroy');
+    Route::get('/', [TaskController::class, 'index']);
+    Route::post('/', [TaskController::class, 'store']);
+    Route::get('/{taskId}', [TaskController::class, 'show']);
+    Route::put('/{taskId}', [TaskController::class, 'update']);
+    Route::delete('/{taskId}', [TaskController::class, 'destroy']);
 });

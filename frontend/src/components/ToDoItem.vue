@@ -5,7 +5,7 @@
         type="checkbox"
         class="checkbox"
         :id="id"
-        :checked="isDone"
+        :checked="is_done"
         @change="$emit('checkbox-changed')"
       />
       <label :for="id" class="checkbox-label">{{ label }}</label>
@@ -44,18 +44,13 @@ export default {
   },
   props: {
     label: { required: true, type: String },
-    done: { default: false, type: Boolean },
+    is_done: { default: false, type: Boolean },
     id: { required: true, type: String },
   },
   data() {
     return {
       isEditing: false,
     }
-  },
-  computed: {
-    isDone() {
-      return this.done
-    },
   },
   methods: {
     deleteToDo() {

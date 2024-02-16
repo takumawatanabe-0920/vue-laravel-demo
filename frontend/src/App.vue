@@ -7,9 +7,9 @@
       <li v-for="item in ToDoItems" :key="item.id">
         <to-do-item
           :label="item.label"
-          :done="item.done"
+          :is_done="item.is_done"
           :id="item.id"
-          @checkbox-changed="updateDoneStatus(item.id)"
+          @checkbox-changed="updateIsDoneStatus(item.id)"
           @item-deleted="deleteToDo(item.id)"
           @item-edited="editToDo(item.id, $event)"
         >
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import uniqueId from 'lodash.uniqueid'
 import ToDoForm from './components/ToDoForm.vue'
 import ToDoItem from './components/ToDoItem.vue'
 
@@ -32,47 +31,52 @@ export default {
   },
   data() {
     return {
-      ToDoItems: [
-        { id: uniqueId('todo-'), label: 'Learn Vue', done: false },
-        {
-          id: uniqueId('todo-'),
-          label: 'Create a Vue project with the CLI',
-          done: true,
-        },
-        { id: uniqueId('todo-'), label: 'Have fun', done: true },
-        { id: uniqueId('todo-'), label: 'Create a to-do list', done: false },
-      ],
+      ToDoItems: [],
     }
   },
   methods: {
-    addToDo(toDoLabel) {
-      this.ToDoItems.push({
-        id: uniqueId('todo-'),
+    async listTasks() {
+      this.ToDoItems = (
+        await this.axios.get('http://localhost:9000/api/tasks')
+      ).data
+    },
+    async addToDo(toDoLabel) {
+      await this.axios.post('http://localhost:9000/api/tasks', {
         label: toDoLabel,
-        done: false,
+        is_done: false,
       })
+      await this.listTasks()
     },
-    updateDoneStatus(toDoId) {
-      const toDoToUpdate = this.ToDoItems.find((item) => item.id === toDoId)
-      toDoToUpdate.done = !toDoToUpdate.done
+    async updateIsDoneStatus(toDoId) {
+      await this.axios.put(`http://localhost:9000/api/tasks/${toDoId}`, {
+        is_done: !this.ToDoItems.find((item) => item.id === toDoId).is_done,
+        label: this.ToDoItems.find((item) => item.id === toDoId).label,
+      })
+      await this.listTasks()
     },
-    deleteToDo(toDoId) {
-      const itemIndex = this.ToDoItems.findIndex((item) => item.id === toDoId)
-      this.ToDoItems.splice(itemIndex, 1)
+    async deleteToDo(toDoId) {
+      await this.axios.delete(`http://localhost:9000/api/tasks/${toDoId}`)
+      await this.listTasks()
       this.$refs.listSummary.focus()
     },
-    editToDo(toDoId, newLabel) {
-      const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId)
-      toDoToEdit.label = newLabel
+    async editToDo(toDoId, newLabel) {
+      await this.axios.put(`http://localhost:9000/api/tasks/${toDoId}`, {
+        label: newLabel,
+        is_done: this.ToDoItems.find((item) => item.id === toDoId).is_done,
+      })
+      await this.listTasks()
     },
   },
   computed: {
     listSummary() {
       const numberFinishedItems = this.ToDoItems.filter(
-        (item) => item.done
+        (item) => item.is_done
       ).length
       return `${numberFinishedItems} out of ${this.ToDoItems.length} items completed`
     },
+  },
+  mounted() {
+    this.listTasks()
   },
 }
 </script>

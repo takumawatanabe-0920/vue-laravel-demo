@@ -1,0 +1,47 @@
+1. Task Dependency Management
+Overview: Introduce the ability to set dependencies between tasks. One task cannot begin until another is completed, enforcing a sequence of operations.
+Learning Points in Laravel: Database relationships, transaction management.
+
+2. Task Classification with Tags
+Overview: Allow tasks to be tagged for classification. Users can easily organize and search tasks using tags.
+Learning Points in Laravel: Many-to-many relationships, Eloquent ORM, implementing search functionality.
+
+3. Graphical Progress Display
+Overview: Visually display the progress of tasks through graphs or charts. For example, show the ratio of completed tasks to incomplete tasks with a pie chart.
+Learning Points in Laravel: Integration of Laravel with JavaScript libraries (like Chart.js), using API resources.
+
+4. Task Sharing Among Users
+Overview: Enable users to share tasks with others, allowing for collaborative completion of tasks.
+Learning Points in Laravel: Authentication system, user permission management (Policies), real-time communication (using Laravel Echo, Pusher).
+
+5. Task Reminders and Notification System
+Overview: Allow setting reminders for specific tasks, and notify users as deadlines approach.
+Learning Points in Laravel: Laravel's notification system, scheduled tasks, email sending features.
+
+6. Task Priority Setting
+Overview: Allow tasks to be assigned priorities (high, medium, low) and sort the task list based on these priorities.
+Learning Points in Laravel: Advanced query building with Eloquent ORM, view composers.
+By adding these features, you'll not only enhance the functionality of the task management app but also dive deep into various aspects of the Laravel framework, such as database operations, integration with the frontend, and implementing an authentication system, thereby gaining a comprehensive knowledge base for web application development.
+
+
+Urgent Task
+Behavior: An urgent task is set with a higher priority over other tasks and sends immediate notifications to prompt the user's attention. Furthermore, upon creation, an urgent task should be displayed at the top of the task list.
+Method Examples:
+sendImmediateNotification(): Notifies the user about the presence of an urgent task immediately.
+highlightTask(): Processes to make this task stand out in the task list.
+Recurring Task
+Behavior: A recurring task needs to be repeated at regular intervals, allowing the user to set the frequency of the task (e.g., daily, weekly, monthly). Each time it is completed, it automatically reschedules itself for the next scheduled time.
+Method Examples:
+setFrequency(frequency): Sets the repetition frequency of the task.
+rescheduleNextOccurrence(): Reschedules the task for its next scheduled occurrence.
+Deadline Task
+Behavior: A deadline task is set with a specific deadline and sends reminders to the user as the deadline approaches. Once the deadline has expired, the user receives a notification of the deadline expiry.
+Method Examples:
+setDeadline(deadline): Sets the deadline for the task.
+sendReminderNotification(): Notifies the user as the deadline approaches.
+notifyDeadlineExpired(): Notifies the user that the task's deadline has expired.
+
+
+TEST
+
+Larastan
