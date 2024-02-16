@@ -10,9 +10,11 @@ stop:
 up:
 	docker-compose up -d --build
 composer-update:
-	docker-compose exec php sh -c "cd /var/www/html && composer update"
+	docker-compose exec composer sh -c "cd /var/www/html && composer update"
 composer-require:
 	docker-compose exec composer sh -c "cd /var/www/html && composer require $(package)"
+composer-require-dev:
+	docker-compose exec composer sh -c "cd /var/www/html && composer require --dev $(package)"
 create-migration:
 	docker-compose exec php sh -c "cd /var/www/html && php artisan make:migration $(migration_name) --create=$(table_name)"
 update-migration:

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\TaskRequest;
+use App\Models\Task;
 use App\Services\TaskService;
-use Illuminate\Support\Facades\Log;
+use App\Http\Requests\TaskRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
+use App\Http\Dto\Tasks\CreateTaskDto;
+use App\Http\Dto\Tasks\UpdateTaskDto;
 
 
 class TaskController extends Controller
 {
-    private $service;
+    private TaskService $service;
 
     public function __construct(
         TaskService $service,
@@ -18,27 +21,32 @@ class TaskController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    /**
+     * @return Collection<int, Task>
+     */
+    public function index(): Collection
     {
         return $this->service->index();
     }
 
-    public function show($id)
+    public function show(int $id): Task
     {
         return $this->service->show($id);
     }
 
-    public function store(TaskRequest $request)
+    public function store(TaskRequest $request): Task
     {
-        return $this->service->store($request->validated());
+        $data = new CreateTaskDto($request->validated());
+        return $this->service->store($data);
     }
 
-    public function update(TaskRequest $request, $id)
+    public function update(TaskRequest $request, int $id): Task
     {
-        return $this->service->update($request->validated(), $id);
+        $data = new UpdateTaskDto($request->validated());
+        return $this->service->update($data, $id);
     }
 
-    public function destroy($id)
+    public function destroy(int $id): bool
     {
         return $this->service->destroy($id);
     }

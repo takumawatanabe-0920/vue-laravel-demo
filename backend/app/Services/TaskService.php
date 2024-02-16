@@ -2,38 +2,45 @@
 
 namespace App\Services;
 
+use App\Models\Task;
 use App\Repositories\TaskRepository;
+use Illuminate\Database\Eloquent\Collection;
+use App\Http\Dto\Tasks\CreateTaskDto;
+use App\Http\Dto\Tasks\UpdateTaskDto;
 
 class TaskService
 {
-    private $taskRepository;
+    private TaskRepository $taskRepository;
 
     public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
 
-    public function index()
+    /**
+     * @return Collection<int, Task>
+     */
+    public function index(): Collection
     {
         return $this->taskRepository->index();
     }
 
-    public function show($id)
+    public function show(int $id): Task
     {
         return $this->taskRepository->show($id);
     }
 
-    public function store($data)
+    public function store(CreateTaskDto $data): Task
     {
         return $this->taskRepository->store($data);
     }
 
-    public function update($data, $id)
+    public function update(UpdateTaskDto $data, int $id): Task
     {
         return $this->taskRepository->update($data, $id);
     }
 
-    public function destroy($id)
+    public function destroy(int $id): bool
     {
         return $this->taskRepository->destroy($id);
     }
