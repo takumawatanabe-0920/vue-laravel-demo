@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\TaskLevel;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,11 +18,15 @@ class Task extends Model
     public $incrementing = false;
 
     use HasFactory;
+    use HasUuids;
 
-    protected $fillable = ['label', 'is_done'];
+    protected $fillable = ['label', 'is_done', 'level'];
+    protected $guarded = ['id'];
 
     protected $casts = [
-        'is_done' => 'boolean'
+        'is_done' => 'boolean',
+        'label' => "string",
+        'level' => TaskLevel::class
     ];
 
     public function getIsDoneAttribute(bool $value): bool
