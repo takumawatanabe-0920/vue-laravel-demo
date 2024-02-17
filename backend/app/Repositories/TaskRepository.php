@@ -25,7 +25,8 @@ class TaskRepository
      */
     public function store(array $data): Task | null
     {
-        $task = Task::create($data)->tags()->sync($data['tag_id']);
+        $task = Task::create($data);
+        $task->tags()->sync($data['tag_id']);
 
         return $task;
     }
@@ -38,10 +39,13 @@ class TaskRepository
         $task = Task::find($id);
 
         if ($task === null) {
-            return false;
+            return null;
         }
 
-        return $task->update($data)->tags()->sync($data['tag_id']);
+        $task->update($data);
+        $task->tags()->sync($data['tag_id']);
+
+        return $task;
     }
 
     public function destroy(int $id): int
