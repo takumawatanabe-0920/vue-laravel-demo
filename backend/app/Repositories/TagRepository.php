@@ -15,7 +15,7 @@ class TagRepository
         return Tag::all();
     }
 
-    public function show(int $id): Tag | null
+    public function show(string $id): Tag | null
     {
         return Tag::find($id);
     }
@@ -31,7 +31,7 @@ class TagRepository
     /**
      * @param array<string, mixed> $data
      */
-    public function update(array $data, int $id): bool
+    public function update(array $data, string $id): bool
     {
         $Tag = Tag::find($id);
 
@@ -42,7 +42,7 @@ class TagRepository
         return $Tag->update($data);
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return Tag::destroy($id);
     }

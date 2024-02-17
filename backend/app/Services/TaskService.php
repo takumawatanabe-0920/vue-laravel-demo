@@ -28,7 +28,7 @@ class TaskService
         return TaskListResource::collection($tasks);
     }
 
-    public function show(int $id): TaskResource
+    public function show(string $id): TaskResource
     {
         $task = $this->taskRepository->show($id);
         return TaskResource::make($task);
@@ -40,13 +40,13 @@ class TaskService
         return $this->show($task->id);
     }
 
-    public function update(UpdateTaskDto $data, int $id): TaskResource
+    public function update(UpdateTaskDto $data, string $id): TaskResource
     {
         $this->taskRepository->update($data->toArray(), $id);
         return $this->show($id);
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return $this->taskRepository->destroy($id);
     }

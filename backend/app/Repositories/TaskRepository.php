@@ -15,7 +15,7 @@ class TaskRepository
         return Task::all();
     }
 
-    public function show(int $id): Task | null
+    public function show(string $id): Task | null
     {
         return Task::find($id);
     }
@@ -34,7 +34,7 @@ class TaskRepository
     /**
      * @param array<string, mixed> $data
      */
-    public function update(array $data, int $id): Task | null
+    public function update(array $data, string $id): Task | null
     {
         $task = Task::find($id);
 
@@ -48,7 +48,7 @@ class TaskRepository
         return $task;
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return Task::destroy($id);
     }

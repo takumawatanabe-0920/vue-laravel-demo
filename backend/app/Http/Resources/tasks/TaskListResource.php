@@ -8,6 +8,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TaskListResource extends JsonResource
 {
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(Request $request): array
     {
         return [

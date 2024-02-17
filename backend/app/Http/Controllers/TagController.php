@@ -29,7 +29,7 @@ class TagController extends Controller
         return $this->service->index();
     }
 
-    public function show(int $id): Tag | null
+    public function show(string $id): Tag | null
     {
         return $this->service->show($id);
     }
@@ -46,7 +46,7 @@ class TagController extends Controller
         return $this->service->store($transformedData);
     }
 
-    public function update(TagRequest $request, int $id): bool
+    public function update(TagRequest $request, string $id): bool
     {
         $data = $request->validated();
         $transformedData = [
@@ -58,7 +58,7 @@ class TagController extends Controller
         return $this->service->update($transformedData, $id);
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return $this->service->destroy($id);
     }

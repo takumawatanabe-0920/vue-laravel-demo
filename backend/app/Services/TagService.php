@@ -25,7 +25,7 @@ class TagService
         return $this->tagRepository->index();
     }
 
-    public function show(int $id): Tag | null
+    public function show(string $id): Tag | null
     {
         return $this->tagRepository->show($id);
     }
@@ -35,12 +35,12 @@ class TagService
         return $this->tagRepository->store($data->toArray());
     }
 
-    public function update(UpdateTagDto $data, int $id): bool
+    public function update(UpdateTagDto $data, string $id): bool
     {
         return $this->tagRepository->update($data->toArray(), $id);
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return $this->tagRepository->destroy($id);
     }

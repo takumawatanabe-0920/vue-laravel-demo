@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TagListResource extends JsonResource
 {
     /**
-     * @return JsonSerializable
+     * @return array<string, mixed>
      */
     public function toArray(Request $request): array
     {

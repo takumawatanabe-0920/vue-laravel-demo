@@ -30,7 +30,7 @@ class TaskController extends Controller
         return $this->service->index();
     }
 
-    public function show(int $id): TaskResource
+    public function show(string $id): TaskResource
     {
         return $this->service->show($id);
     }
@@ -47,7 +47,7 @@ class TaskController extends Controller
         return $this->service->store($transformedData);
     }
 
-    public function update(TaskRequest $request, int $id): TaskResource
+    public function update(TaskRequest $request, string $id): TaskResource
     {
         $data = $request->validated();
         $transformedData = [
@@ -59,7 +59,7 @@ class TaskController extends Controller
         return $this->service->update($transformedData, $id);
     }
 
-    public function destroy(int $id): int
+    public function destroy(string $id): int
     {
         return $this->service->destroy($id);
     }
