@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Tag;
 use App\Enums\TaskLevel;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Tag extends Model
 {
-    protected $table = 'tasks';
+    protected $table = 'tags';
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';
@@ -21,19 +20,14 @@ class Task extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $fillable = ['label', 'is_done', 'level'];
+    protected $fillable = ['name', 'color', 'description'];
     protected $guarded = ['id'];
 
     protected $casts = [
-        'is_done' => 'boolean',
-        'label' => "string",
-        'level' => TaskLevel::class
+        'name' => 'string',
+        'color' => 'string',
+        'description' => 'string',
     ];
-
-    public function getIsDoneAttribute(bool $value): bool
-    {
-        return $value;
-    }
 
 
     public function setIsDoneAttribute(bool $value): void
@@ -50,11 +44,12 @@ class Task extends Model
         });
     }
 
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\Tag>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\Task>
      */
-    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'task_tag', 'task_id', 'tag_id');
+        return $this->belongsToMany(Task::class, 'task_tag', 'tag_id', 'task_id');
     }
 }
