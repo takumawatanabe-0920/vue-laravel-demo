@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\TaskLevel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +40,10 @@ class Tag extends Model
 
         static::creating(function ($model) {
             $model->id = (string) \Illuminate\Support\Str::uuid();
+        });
+
+        static::deleting(function ($tag) {
+            $tag->tasks()->detach();
         });
     }
 

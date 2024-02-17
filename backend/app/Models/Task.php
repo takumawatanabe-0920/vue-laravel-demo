@@ -48,6 +48,10 @@ class Task extends Model
         static::creating(function ($model) {
             $model->id = (string) \Illuminate\Support\Str::uuid();
         });
+
+        static::deleting(function ($task) {
+            $task->tags()->detach();
+        });
     }
 
     /**

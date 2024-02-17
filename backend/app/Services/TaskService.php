@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Models\Task;
 use App\Repositories\TaskRepository;
-use Illuminate\Database\Eloquent\Collection;
 use App\Http\Dto\Tasks\CreateTaskDto;
 use App\Http\Dto\Tasks\UpdateTaskDto;
+use App\Http\Resources\TaskListResource;
+use App\Http\Resources\TaskResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TaskService
 {
@@ -18,26 +20,30 @@ class TaskService
     }
 
     /**
-     * @return Collection<int, Task>
+     * @return AnonymousResourceCollection<int, TaskListResource>
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return $this->taskRepository->index();
+        $tasks = $this->taskRepository->index();
+        return TaskListResource::collection($tasks);
     }
 
-    public function show(int $id): Task | null
+    public function show(int $id): TaskResource
     {
-        return $this->taskRepository->show($id);
+        $task = $this->taskRepository->show($id);
+        return TaskResource::make($task);
     }
 
-    public function store(CreateTaskDto $data): Task | null
+    public function store(CreateTaskDto $data): TaskResource
     {
-        return $this->taskRepository->store($data->toArray());
+        $task = $this->taskRepository->store($data->toArray());
+        return $this->show($task->id);
     }
 
-    public function update(UpdateTaskDto $data, int $id): bool
+    public function update(UpdateTaskDto $data, int $id): TaskResource
     {
-        return $this->taskRepository->update($data->toArray(), $id);
+        $this->taskRepository->update($data->toArray(), $id);
+        return $this->show($id);
     }
 
     public function destroy(int $id): int

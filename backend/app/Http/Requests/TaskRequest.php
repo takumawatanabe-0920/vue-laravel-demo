@@ -18,7 +18,8 @@ class TaskRequest extends FormRequest
     {
         return [
             'label' => 'required|string',
-            'is_done' => 'required|boolean'
+            'is_done' => 'required|boolean',
+            'tag_id' => 'required|string'
         ];
     }
 }
