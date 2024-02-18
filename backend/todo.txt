@@ -2,10 +2,6 @@
 Overview: Introduce the ability to set dependencies between tasks. One task cannot begin until another is completed, enforcing a sequence of operations.
 Learning Points in Laravel: Database relationships, transaction management.
 
-2. Task Classification with Tags // 3
-Overview: Allow tasks to be tagged for classification. Users can easily organize and search tasks using tags.
-Learning Points in Laravel: Many-to-many relationships, Eloquent ORM, implementing search functionality.
-
 3. Graphical Progress Display // low
 Overview: Visually display the progress of tasks through graphs or charts. For example, show the ratio of completed tasks to incomplete tasks with a pie chart.
 Learning Points in Laravel: Integration of Laravel with JavaScript libraries (like Chart.js), using API resources.
@@ -17,12 +13,6 @@ Learning Points in Laravel: Authentication system, user permission management (P
 5. Task Reminders and Notification System
 Overview: Allow setting reminders for specific tasks, and notify users as deadlines approach.
 Learning Points in Laravel: Laravel's notification system, scheduled tasks, email sending features.
-
-6. Task Priority Setting 1
-Overview: Allow tasks to be assigned priorities (high, medium, low) and sort the task list based on these priorities.
-Learning Points in Laravel: Advanced query building with Eloquent ORM, view composers.
-By adding these features, you'll not only enhance the functionality of the task management app but also dive deep into various aspects of the Laravel framework, such as database operations, integration with the frontend, and implementing an authentication system, thereby gaining a comprehensive knowledge base for web application development.
-
 
 
 Urgent Task 2

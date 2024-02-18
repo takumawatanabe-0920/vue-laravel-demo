@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
 use App\Services\TaskService;
 use App\Http\Requests\TaskRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Dto\Tasks\CreateTaskDto;
 use App\Http\Dto\Tasks\UpdateTaskDto;
-use App\Http\Resources\TaskListResource;
-use App\Http\Resources\TaskResource;
+use App\Http\Resources\Tasks\TaskListResource;
+use App\Http\Resources\tasks\TaskResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TaskController extends Controller

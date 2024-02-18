@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Task;
 use App\Repositories\TaskRepository;
 use App\Http\Dto\Tasks\CreateTaskDto;
 use App\Http\Dto\Tasks\UpdateTaskDto;
-use App\Http\Resources\TaskListResource;
-use App\Http\Resources\TaskResource;
+use App\Http\Resources\tasks\TaskListResource;
+use App\Http\Resources\tasks\TaskResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TaskService

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Tags;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TagListResource extends JsonResource
+class TagResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
