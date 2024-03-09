@@ -29,11 +29,6 @@ class Tag extends Model
     ];
 
 
-    public function setIsDoneAttribute(bool $value): void
-    {
-        $this->attributes['is_done'] = $value;
-    }
-
     public static function boot()
     {
         parent::boot();

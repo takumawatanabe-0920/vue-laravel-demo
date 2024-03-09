@@ -33,28 +33,28 @@ export default {
     }
   },
   methods: {
-    async listTasks() {
+    async listTodos() {
       this.ToDoItems = (
         await this.axios.get('http://localhost:9000/api/tasks')
-      ).data
+      ).data.data
     },
     async addToDo(toDoLabel) {
       await this.axios.post('http://localhost:9000/api/tasks', {
         label: toDoLabel,
         is_done: false,
       })
-      await this.listTasks()
+      await this.listTodos()
     },
     async updateIsDoneStatus(toDoId) {
       await this.axios.put(`http://localhost:9000/api/tasks/${toDoId}`, {
         is_done: !this.ToDoItems.find((item) => item.id === toDoId).is_done,
         label: this.ToDoItems.find((item) => item.id === toDoId).label,
       })
-      await this.listTasks()
+      await this.listTodos()
     },
     async deleteToDo(toDoId) {
       await this.axios.delete(`http://localhost:9000/api/tasks/${toDoId}`)
-      await this.listTasks()
+      await this.listTodos()
       this.$refs.listSummary.focus()
     },
     async editToDo(toDoId, newLabel) {
@@ -62,7 +62,7 @@ export default {
         label: newLabel,
         is_done: this.ToDoItems.find((item) => item.id === toDoId).is_done,
       })
-      await this.listTasks()
+      await this.listTodos()
     },
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
     },
   },
   mounted() {
-    this.listTasks()
+    this.listTodos()
   },
 }
 </script>

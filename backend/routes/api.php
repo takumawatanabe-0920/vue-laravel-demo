@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -33,4 +34,14 @@ Route::group([
     Route::get('/{taskId}', [TaskController::class, 'show']);
     Route::put('/{taskId}', [TaskController::class, 'update']);
     Route::delete('/{taskId}', [TaskController::class, 'destroy']);
+});
+
+Route::group([
+    "prefix" => "tags"
+], function () {
+    Route::get('/', [TagController::class, 'index']);
+    Route::post('/', [TagController::class, 'store']);
+    Route::get('/{tagId}', [TagController::class, 'show']);
+    Route::put('/{tagId}', [TagController::class, 'update']);
+    Route::delete('/{tagId}', [TagController::class, 'destroy']);
 });
