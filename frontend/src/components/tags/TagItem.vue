@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import TagItemEditForm from './TagItemEditForm.vue';
+import TagItemEditForm from './TagItemEditForm.vue'
 
 export default {
   components: {
@@ -51,33 +51,32 @@ export default {
   data() {
     return {
       isEditing: false,
-    };
+    }
   },
   methods: {
     deleteTag() {
-      this.$emit('item-deleted');
+      this.$emit('item-deleted')
     },
     toggleToItemEditForm() {
-      console.log(this.$refs.editButton);
-      this.isEditing = true;
+      this.isEditing = true
     },
-    itemEdited(newLabel) {
-      this.$emit('item-edited', newLabel);
-      this.isEditing = false;
-      this.focusOnEditButton();
+    itemEdited(id, name, color, description) {
+      this.$emit('item-edited', id, name, color, description)
+      this.isEditing = false
+      this.focusOnEditButton()
     },
     editCancelled() {
-      this.isEditing = false;
-      this.focusOnEditButton();
+      this.isEditing = false
+      this.focusOnEditButton()
     },
     focusOnEditButton() {
       this.$nextTick(() => {
-        const editButtonRef = this.$refs.editButton;
-        editButtonRef.focus();
-      });
+        const editButtonRef = this.$refs.editButton
+        editButtonRef.focus()
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped>

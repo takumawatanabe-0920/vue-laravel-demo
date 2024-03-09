@@ -9,6 +9,17 @@
         autocomplete="off"
         v-model.lazy.trim="newName"
       />
+      <label class="edit-label">Edit Color for &quot;{{ name }}&quot;</label>
+      <input :id="id" type="color" v-model.lazy.trim="newColor" />
+      <label class="edit-label"
+        >Edit Description for &quot;{{ name }}&quot;</label
+      >
+      <input
+        :id="id"
+        type="text"
+        autocomplete="off"
+        v-model.lazy.trim="newDescription"
+      />
     </div>
     <div class="btn-group">
       <button type="button" class="btn" @click="onCancel">
@@ -29,6 +40,14 @@ export default {
       type: String,
       required: true,
     },
+    color: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
     id: {
       type: String,
       required: true,
@@ -37,13 +56,19 @@ export default {
   data() {
     return {
       newName: this.name,
+      newColor: this.color,
+      newDescription: this.description,
     }
   },
   methods: {
     onSubmit() {
-      if (this.newName && this.newName !== this.name) {
-        this.$emit('item-edited', this.newName)
-      }
+      this.$emit(
+        'item-edited',
+        this.id,
+        this.newName,
+        this.newColor,
+        this.newDescription
+      )
     },
     onCancel() {
       this.$emit('edit-cancelled')

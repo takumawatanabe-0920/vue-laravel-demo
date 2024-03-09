@@ -40,12 +40,12 @@ export default {
   methods: {
     onSubmit() {
       if (this.name === '') {
-        return;
+        return
       }
-      this.$emit('tag-added', this.name, this.color, this.description);
-      this.name = '';
-      this.color = '';
-      this.description = '';
+      this.$emit('tag-added', this.name, this.color, this.description)
+      this.name = ''
+      this.color = ''
+      this.description = ''
     },
   },
   data() {
@@ -53,7 +53,7 @@ export default {
       name: '',
       color: '',
       description: '',
-    };
+    }
   },
-};
+}
 </script>
