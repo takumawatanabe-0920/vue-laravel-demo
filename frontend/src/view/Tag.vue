@@ -4,11 +4,12 @@
     <ul>
       <li v-for="tag in TagItems" :key="tag.id">
         <tag-item
+          :id="tag.id"
           :name="tag.name"
           :color="tag.color"
           :description="tag.description"
-          @tag-deleted="deleteTag(tag.id)"
-          @tag-edited="editTag"
+          @item-deleted="deleteTag(tag.id)"
+          @item-edited="editTag"
         >
         </tag-item>
       </li>

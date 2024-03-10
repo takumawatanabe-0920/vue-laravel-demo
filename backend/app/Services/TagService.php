@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Tag;
+use App\Http\Resources\tags\TagListResource;
+use App\Http\Resources\Tags\TagResource;
 use App\Repositories\TagRepository;
-use Illuminate\Database\Eloquent\Collection;
-use App\Http\Dto\Tags\CreateTagDto;
-use App\Http\Dto\Tags\UpdateTagDto;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TagService
 {
@@ -18,26 +17,30 @@ class TagService
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return AnonymousResourceCollection<int, TagListResource>
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return $this->tagRepository->index();
+        $tags = $this->tagRepository->index();
+        return TagListResource::collection($tags);
     }
 
-    public function show(string $id): Tag | null
+    public function show(string $id): TagResource
     {
-        return $this->tagRepository->show($id);
+        $tag = $this->tagRepository->show($id);
+        return TagResource::make($tag);
     }
 
-    public function store(CreateTagDto $data): Tag | null
+    public function store(array $data): TagResource
     {
-        return $this->tagRepository->store($data->toArray());
+        $tag = $this->tagRepository->store($data);
+        return $this->show($tag->id);
     }
 
-    public function update(UpdateTagDto $data, string $id): bool
+    public function update(array $data, string $id): TagResource
     {
-        return $this->tagRepository->update($data->toArray(), $id);
+        $this->tagRepository->update($data, $id);
+        return $this->show($id);
     }
 
     public function destroy(string $id): int

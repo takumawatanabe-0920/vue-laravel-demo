@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
 use App\Services\TagService;
 use App\Http\Requests\TagRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Collection;
-use App\Http\Dto\Tags\CreateTagDto;
-use App\Http\Dto\Tags\UpdateTagDto;
+use App\Http\Resources\Tags\TagResource;
+use App\Http\Resources\tags\TagListResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 
 class TagController extends Controller
@@ -22,19 +21,19 @@ class TagController extends Controller
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return AnonymousResourceCollection<int, TagListResource>
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
         return $this->service->index();
     }
 
-    public function show(string $id): Tag | null
+    public function show(string $id): TagResource
     {
         return $this->service->show($id);
     }
 
-    public function store(TagRequest $request): Tag | null
+    public function store(TagRequest $request): TagResource
     {
         $data = $request->validated();
         $transformedData = [
@@ -42,11 +41,10 @@ class TagController extends Controller
             'color' => (string) $data['color'],
             'description' => (string) $data['description'],
         ];
-        $transformedData = new CreateTagDto($transformedData);
         return $this->service->store($transformedData);
     }
 
-    public function update(TagRequest $request, string $id): bool
+    public function update(TagRequest $request, string $id): TagResource
     {
         $data = $request->validated();
         $transformedData = [
@@ -54,7 +52,6 @@ class TagController extends Controller
             'color' => (string) $data['color'],
             'description' => (string) $data['description'],
         ];
-        $transformedData = new UpdateTagDto($transformedData);
         return $this->service->update($transformedData, $id);
     }
 

@@ -1,15 +1,23 @@
 <template>
   <div class="stack-small" v-if="!isEditing">
-    <div class="custom-checkbox">
-      <input
-        type="checkbox"
-        class="checkbox"
-        :id="id"
-        :checked="is_done"
-        @change="$emit('checkbox-changed')"
-      />
-      <label :for="id" class="checkbox-label">{{ label }}</label>
-    </div>
+    <dl>
+      <dt>タグ名</dt>
+      <dd>
+        {{ name }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>タグの色</dt>
+      <dd>
+        <input type="color" :value="color" disabled />
+      </dd>
+    </dl>
+    <dl>
+      <dt>タグの説明</dt>
+      <dd>
+        {{ description }}
+      </dd>
+    </dl>
     <div class="btn-group">
       <button
         type="button"
@@ -18,18 +26,20 @@
         @click="toggleToItemEditForm"
       >
         Edit
-        <span class="visually-hidden">{{ label }}</span>
+        <span class="visually-hidden">{{ name }}</span>
       </button>
       <button type="button" class="btn btn__danger" @click="deleteTag">
         Delete
-        <span class="visually-hidden">{{ label }}</span>
+        <span class="visually-hidden">{{ name }}</span>
       </button>
     </div>
   </div>
   <tag-item-edit-form
     v-else
     :id="id"
-    :label="label"
+    :name="name"
+    :color="color"
+    :description="description"
     @item-edited="itemEdited"
     @edit-cancelled="editCancelled"
   ></tag-item-edit-form>
@@ -61,6 +71,7 @@ export default {
       this.isEditing = true
     },
     itemEdited(id, name, color, description) {
+      console.log('TagItem: itemEdited', id, name, color, description)
       this.$emit('item-edited', id, name, color, description)
       this.isEditing = false
       this.focusOnEditButton()

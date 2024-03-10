@@ -62,9 +62,17 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log({
+        id: this.id,
+        newName: this.newName,
+        newColor: this.newColor,
+        newDescription: this.newDescription,
+        this: this,
+        props: this.$props,
+      })
       this.$emit(
         'item-edited',
-        this.id,
+        this.$props.id,
         this.newName,
         this.newColor,
         this.newDescription
