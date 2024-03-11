@@ -34,7 +34,7 @@
       </button>
     </div>
   </div>
-  <tag-item-edit-form
+  <TagItemEditForm
     v-else
     :id="id"
     :name="name"
@@ -42,7 +42,7 @@
     :description="description"
     @item-edited="itemEdited"
     @edit-cancelled="editCancelled"
-  ></tag-item-edit-form>
+  ></TagItemEditForm>
 </template>
 
 <script>

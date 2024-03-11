@@ -1,9 +1,9 @@
 <template>
   <div>
-    <tag-form @tag-added="addTag" />
+    <TagForm @tag-added="addTag" />
     <ul>
       <li v-for="tag in TagItems" :key="tag.id">
-        <tag-item
+        <TagItem
           :id="tag.id"
           :name="tag.name"
           :color="tag.color"
@@ -11,7 +11,7 @@
           @item-deleted="deleteTag(tag.id)"
           @item-edited="editTag"
         >
-        </tag-item>
+        </TagItem>
       </li>
     </ul>
   </div>
@@ -61,7 +61,7 @@ export default {
     },
   },
   computed: {},
-  mounted() {
+  created() {
     this.listTags()
   },
 }

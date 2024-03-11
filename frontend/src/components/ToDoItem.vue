@@ -26,13 +26,13 @@
       </button>
     </div>
   </div>
-  <to-do-item-edit-form
+  <ToDoItemEditForm
     v-else
     :id="id"
     :label="label"
     @item-edited="itemEdited"
     @edit-cancelled="editCancelled"
-  ></to-do-item-edit-form>
+  ></ToDoItemEditForm>
 </template>
 
 <script>
