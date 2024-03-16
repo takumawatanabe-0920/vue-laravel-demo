@@ -28,3 +28,5 @@ model:
 data:
 	docker-compose exec php sh -c "cd /var/www/html && php artisan migrate"
 	docker-compose exec php sh -c "cd /var/www/html && php artisan db:seed"
+update-nginx:
+	docker-compose exec nginx sh -c "nginx -s reload"

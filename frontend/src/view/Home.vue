@@ -37,6 +37,10 @@ export default {
       this.ToDoItems = (
         await this.axios.get('http://localhost:9000/api/tasks')
       ).data.data
+
+      const user = (await this.axios.get('http://localhost:9000/api/me')).data
+        .data
+      console.log(user)
     },
     async addToDo(toDoLabel) {
       await this.axios.post('http://localhost:9000/api/tasks', {

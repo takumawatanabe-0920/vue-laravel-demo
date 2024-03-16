@@ -2,13 +2,13 @@
   <div>
     <h1>Login</h1>
     <form @submit.prevent="onSubmit">
-      <label for="username" class="label__lg">Username</label>
+      <label for="email" class="label__lg">Email</label>
       <input
-        type="text"
-        id="username"
-        name="username"
+        type="email"
+        id="email"
+        name="email"
         autocomplete="off"
-        v-model.lazy.trim="username"
+        v-model.lazy.trim="email"
         class="input__lg"
       />
       <label for="password" class="label__lg">Password</label>
@@ -29,18 +29,25 @@
 export default {
   name: 'LoginPage',
   methods: {
-    onSubmit() {
-      if (!this.username || !this.password) {
+    async onSubmit() {
+      if (!this.email || !this.password) {
         return
       }
-      this.$emit('login', this.username, this.password)
-      this.username = ''
+      await this.login(this.email, this.password)
+      this.email = ''
       this.password = ''
+    },
+    async login(email, password) {
+      await this.axios.post('http://localhost:9000/auth/login', {
+        email,
+        password,
+      })
+      this.$router.push('/')
     },
   },
   data() {
     return {
-      username: '',
+      email: '',
       password: '',
     }
   },

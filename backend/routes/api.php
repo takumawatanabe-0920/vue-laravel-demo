@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LoginUserInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () {
     return 'Hello, World!!!';
 });
+
+Route::get("me", [LoginUserInfoController::class, 'getMyInfo']);
 
 Route::group([
     "prefix" => "tasks"
